@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MobilityNet — Open-Source Cyberinfrastructure for Mobility Data</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f6f2;
+    --surface: #ffffff;
+    --surface2: #f0efe9;
+    --border: rgba(0,0,0,0.1);
+    --border2: rgba(0,0,0,0.06);
+    --text: #1a1a18;
+    --text2: #5c5c56;
+    --text3: #9a9a92;
+    --accent: #1a4a8a;
+    --accent-light: #e8eef7;
+    --accent2: #0f6e56;
+    --accent2-light: #e1f5ee;
+    --amber: #854f0b;
+    --amber-light: #faeeda;
+    --font: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+    --radius: 10px;
+    --radius-lg: 16px;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    gap: 2rem;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--text);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .nav-logo-mark {
+    width: 30px;
+    height: 30px;
+    background: var(--accent);
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-links { display: flex; gap: 0.25rem; flex: 1; }
+
+  .nav-link {
+    padding: 6px 12px;
+    border-radius: 7px;
+    font-size: 14px;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all 0.15s;
+    border: none;
+    background: none;
+    font-family: var(--font);
+  }
+
+  .nav-link:hover { background: var(--surface2); color: var(--text); }
+  .nav-link.active { background: var(--accent-light); color: var(--accent); font-weight: 500; }
+
+  .nav-badge {
+    background: var(--accent);
+    color: white;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-left: 6px;
+    font-weight: 500;
+    vertical-align: middle;
+  }
+
+  .nsf-badge {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--text3);
+    font-family: var(--mono);
+    letter-spacing: 0.02em;
+  }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* HERO */
+  .hero { padding: 5rem 2rem 4rem; max-width: 900px; margin: 0 auto; }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-family: var(--mono);
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1.hero-title {
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  h1.hero-title strong { font-weight: 500; color: var(--accent); }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--text2);
+    max-width: 620px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    font-family: var(--font);
+    transition: all 0.15s;
+  }
+
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-primary:hover { background: #153d73; }
+  .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { background: var(--surface2); }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    max-width: 900px;
+    margin: 0 auto 3rem;
+  }
+
+  .stat-cell { background: var(--surface); padding: 1.5rem; text-align: center; }
+
+  .stat-num {
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text);
+    display: block;
+    letter-spacing: -0.03em;
+  }
+
+  .stat-label { font-size: 12px; color: var(--text3); margin-top: 2px; }
+
+  .section { max-width: 900px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border2);
+    padding-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-family: var(--mono);
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    text-transform: uppercase;
+  }
+
+  .see-all {
+    font-size: 13px;
+    color: var(--accent);
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: var(--font);
+    padding: 0;
+  }
+
+  .component-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+  .component-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+  }
+
+  .component-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .icon-blue { background: var(--accent-light); }
+  .icon-green { background: var(--accent2-light); }
+  .icon-amber { background: var(--amber-light); }
+
+  .component-card h3 { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+  .component-card p { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+  .news-list { display: flex; flex-direction: column; gap: 0; }
+
+  .news-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border2);
+    align-items: flex-start;
+  }
+
+  .news-date { font-size: 12px; font-family: var(--mono); color: var(--text3); min-width: 80px; padding-top: 2px; }
+  .news-content h4 { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+  .news-content p { font-size: 13px; color: var(--text2); }
+
+  .news-tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-top: 6px;
+  }
+
+  .tag-pub { background: var(--accent-light); color: var(--accent); }
+  .tag-award { background: var(--accent2-light); color: var(--accent2); }
+
+  /* CATALOG */
+  .catalog-header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 2rem 0;
+  }
+
+  .catalog-header-inner { max-width: 900px; margin: 0 auto; }
+  .catalog-header h2 { font-size: 1.75rem; font-weight: 300; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+  .catalog-header p { font-size: 14px; color: var(--text2); margin-bottom: 1.5rem; }
+
+  .catalog-tabs { display: flex; gap: 0; }
+
+  .catalog-tab {
+    padding: 10px 16px;
+    font-size: 13px;
+    color: var(--text2);
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: var(--font);
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+  }
+
+  .catalog-tab:hover { color: var(--text); }
+  .catalog-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+
+  .catalog-body { max-width: 900px; margin: 0 auto; padding: 1.5rem 2rem 4rem; }
+
+  .search-bar { display: flex; gap: 10px; margin-bottom: 1.25rem; }
+
+  .search-input {
+    flex: 1;
+    padding: 9px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    background: var(--surface);
+    color: var(--text);
+    font-family: var(--font);
+    outline: none;
+  }
+
+  .search-input:focus { border-color: var(--accent); }
+
+  .filter-chip {
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+    background: var(--surface);
+    color: var(--text2);
+    cursor: pointer;
+    font-family: var(--font);
+    transition: all 0.15s;
+  }
+
+  .filter-chip.active { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+
+  .dataset-grid { display: flex; flex-direction: column; gap: 10px; }
+
+  .dataset-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    transition: border-color 0.15s;
+  }
+
+  .dataset-card:hover { border-color: rgba(26,74,138,0.3); }
+
+  .dataset-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    gap: 1rem;
+  }
+
+  .dataset-name { font-size: 15px; font-weight: 500; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+  .dataset-type {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 400;
+    font-family: var(--mono);
+  }
+
+  .type-traj { background: var(--accent-light); color: var(--accent); }
+  .type-poi { background: var(--accent2-light); color: var(--accent2); }
+  .type-flow { background: var(--amber-light); color: var(--amber); }
+
+  .dataset-desc { font-size: 13px; color: var(--text2); margin-bottom: 1rem; line-height: 1.5; }
+
+  .dataset-meta {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 12px;
+    color: var(--text3);
+    font-family: var(--mono);
+    flex-wrap: wrap;
+  }
+
+  .dataset-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+
+  .btn-sm {
+    padding: 7px 14px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    font-family: var(--font);
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .btn-sm-primary { background: var(--accent); color: white; }
+  .btn-sm-primary:hover { background: #153d73; }
+  .btn-sm-outline { background: var(--surface); color: var(--text2); border: 1px solid var(--border); }
+  .btn-sm-outline:hover { background: var(--surface2); }
+
+  /* OVERVIEW */
+  .overview-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 3rem 2rem 2.5rem; }
+  .overview-hero-inner { max-width: 900px; margin: 0 auto; }
+  .overview-hero h2 { font-size: 1.75rem; font-weight: 300; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .overview-hero p { font-size: 15px; color: var(--text2); max-width: 680px; line-height: 1.7; }
+
+  .overview-body { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+
+  .ci-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+    background: var(--surface);
+  }
+
+  .ci-step {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border2);
+    align-items: flex-start;
+  }
+
+  .ci-step:last-child { border-bottom: none; }
+
+  .ci-step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .ci-step h4 { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .ci-step p { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+  .use-case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 2.5rem; }
+
+  .use-case-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; }
+  .use-case-card h4 { font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+  .use-case-card p { font-size: 12px; color: var(--text2); line-height: 1.5; }
+
+  .publications-list { display: flex; flex-direction: column; gap: 0; }
+
+  .pub-item { padding: 1rem 0; border-bottom: 1px solid var(--border2); display: flex; gap: 1rem; align-items: flex-start; }
+  .pub-year { font-family: var(--mono); font-size: 12px; color: var(--text3); min-width: 44px; padding-top: 2px; }
+  .pub-content h4 { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+  .pub-content p { font-size: 12px; color: var(--text2); }
+  .pub-venue { font-size: 11px; font-family: var(--mono); color: var(--accent); margin-top: 4px; display: block; }
+
+  /* TEAM */
+  .team-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 2.5rem 2rem 2rem; }
+  .team-header-inner { max-width: 900px; margin: 0 auto; }
+  .team-header h2 { font-size: 1.75rem; font-weight: 300; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+  .team-header p { font-size: 14px; color: var(--text2); }
+
+  .team-body { max-width: 900px; margin: 0 auto; padding: 2rem; }
+
+  .team-section-label {
+    font-size: 11px;
+    font-family: var(--mono);
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border2);
+  }
+
+  .team-section-label:first-child { margin-top: 0; }
+
+  .pi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+
+  .pi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .pi-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .pi-info h4 { font-size: 14px; font-weight: 500; }
+  .pi-info .pi-role { font-size: 12px; color: var(--text3); margin-top: 2px; }
+  .pi-info .pi-uni {
+    font-size: 11px;
+    font-family: var(--mono);
+    margin-top: 4px;
+    padding: 2px 7px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+
+  .uni-rutgers { background: #fceaea; color: #8b1a1a; }
+  .uni-fsu { background: #faeeda; color: #7a4f0a; }
+  .uni-ucla { background: var(--accent-light); color: var(--accent); }
+
+  .student-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .student-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .student-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .you-badge {
+    font-size: 10px;
+    background: var(--accent);
+    color: white;
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-left: 6px;
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    max-width: 460px;
+    width: 90%;
+    border: 1px solid var(--border);
+  }
+
+  .modal h3 { font-size: 18px; font-weight: 500; margin-bottom: 0.5rem; }
+  .modal p { font-size: 14px; color: var(--text2); margin-bottom: 1.5rem; line-height: 1.6; }
+  .modal-form { display: flex; flex-direction: column; gap: 12px; }
+  .form-group label { font-size: 12px; color: var(--text2); display: block; margin-bottom: 4px; }
+
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    outline: none;
+  }
+
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
+  .form-group textarea { resize: none; height: 80px; }
+  .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 1.25rem; }
+
+  .success-toast {
+    display: none;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--accent2);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 9999;
+  }
+
+  .footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text3);
+    font-family: var(--mono);
+  }
+
+  .uni-logos { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 1rem; }
+  .uni-logo-text { font-size: 13px; font-weight: 500; color: var(--text2); font-family: var(--font); }
+
+  @media (max-width: 640px) {
+    .component-grid, .pi-grid, .use-case-grid { grid-template-columns: 1fr; }
+    .student-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    h1.hero-title { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 16 16" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="4" cy="12" r="2.5" fill="white" opacity="0.6"/>
+        <circle cx="8" cy="7" r="2.5" fill="white"/>
+        <circle cx="12" cy="4" r="2" fill="white" opacity="0.8"/>
+        <line x1="4" y1="12" x2="8" y2="7" stroke="white" stroke-width="1" opacity="0.5"/>
+        <line x1="8" y1="7" x2="12" y2="4" stroke="white" stroke-width="1" opacity="0.5"/>
+      </svg>
+    </div>
+    MobilityNet
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showPage('home')" id="nav-home">Home</button>
+    <button class="nav-link" onclick="showPage('overview')" id="nav-overview">Overview</button>
+    <button class="nav-link" onclick="showPage('catalog')" id="nav-catalog">Data Catalog <span class="nav-badge">12</span></button>
+    <button class="nav-link" onclick="showPage('team')" id="nav-team">Team</button>
+  </div>
+  <span class="nsf-badge">NSF #2411151</span>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-eyebrow">NSF-Funded Cyberinfrastructure · Rutgers · FSU · UCLA</div>
+    <h1 class="hero-title">Open-source infrastructure<br>for <strong>synthetic mobility data</strong></h1>
+    <p class="hero-sub">MobilityNet enables researchers to access privacy-preserving synthetic urban mobility datasets — generated using diffusion models and validated for utility, fairness, and privacy.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="showPage('catalog')">Browse Data Catalog</button>
+      <button class="btn btn-secondary" onclick="showPage('overview')">Learn More</button>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-cell"><span class="stat-num">3</span><div class="stat-label">Universities</div></div>
+    <div class="stat-cell"><span class="stat-num">12</span><div class="stat-label">Datasets Available</div></div>
+    <div class="stat-cell"><span class="stat-num">8</span><div class="stat-label">Publications</div></div>
+    <div class="stat-cell"><span class="stat-num">18+</span><div class="stat-label">Partner Institutions</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Platform Components</span>
+    </div>
+    <div class="component-grid">
+      <div class="component-card">
+        <div class="component-icon icon-blue">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="8" rx="2" stroke="#1a4a8a" stroke-width="1.5"/><path d="M5 8h6M5 10.5h3.5" stroke="#1a4a8a" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Cross-Domain Data Curation</h3>
+        <p>Integrates cellular, transportation, and payment network data to address bias in existing mobility datasets.</p>
+      </div>
+      <div class="component-card">
+        <div class="component-icon icon-green">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5" stroke="#0f6e56" stroke-width="1.5"/><path d="M8 5v3l2 1.5" stroke="#0f6e56" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Socially-Informed Interpretation</h3>
+        <p>LLM-powered semantic enrichment of raw mobility signals, capturing behavioral patterns and urban context.</p>
+      </div>
+      <div class="component-card">
+        <div class="component-icon icon-amber">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L6 7l3 4 2-5 2 4" stroke="#854f0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Privacy-Preserving Generation</h3>
+        <p>Diffusion model-based synthetic data generation with differential privacy guarantees and fairness constraints.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Recent News</span>
+    </div>
+    <div class="news-list">
+      <div class="news-item">
+        <div class="news-date">Mar 2025</div>
+        <div class="news-content">
+          <h4>AutoSTDiff accepted at ICDE 2025</h4>
+          <p>Autoregressive spatio-temporal denoising diffusion model for asynchronous trajectory generation.</p>
+          <span class="news-tag tag-pub">Publication</span>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">Aug 2024</div>
+        <div class="news-content">
+          <h4>POIPrivacy presented at KDD 2024</h4>
+          <p>Study on privacy risk for point-of-interest recommendation systems — codebase now open-source.</p>
+          <span class="news-tag tag-pub">Publication</span>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">Jul 2024</div>
+        <div class="news-content">
+          <h4>MobilityNet awarded three NSF grants</h4>
+          <p>Awards #2411151, #2411152, and #2411153 fund the multi-university cyberinfrastructure initiative.</p>
+          <span class="news-tag tag-award">Award</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="page" id="page-overview">
+  <div class="overview-hero">
+    <div class="overview-hero-inner">
+      <div class="hero-eyebrow" style="margin-bottom:1rem;">Project Overview</div>
+      <h2>Open-Source Cyberinfrastructure for Cross-Domain Mobility Data</h2>
+      <p>Human mobility data from urban infrastructure has enormous scientific potential — but most of it is proprietary, costly, or privacy-sensitive. MobilityNet builds the tools to generate synthetic datasets that are open, application-ready, and privacy-guaranteed.</p>
+    </div>
+  </div>
+  <div class="overview-body">
+    <div class="section-header" style="margin-top:0;">
+      <span class="section-title">Three CI Components</span>
+    </div>
+    <div class="ci-steps">
+      <div class="ci-step">
+        <div class="ci-step-num">1</div>
+        <div>
+          <h4>Cross-Domain Real Data Curation</h4>
+          <p>Addresses data bias by integrating mobility signals across domains — cellular networks, transit systems, financial transactions, and urban sensors — into a unified, validated corpus.</p>
+        </div>
+      </div>
+      <div class="ci-step">
+        <div class="ci-step-num">2</div>
+        <div>
+          <h4>Socially-Informed Real Data Interpretation</h4>
+          <p>Uses large language models to address data implicitness — enriching sparse or ambiguous mobility records with semantic context about purpose, behavioral patterns, and urban dynamics.</p>
+        </div>
+      </div>
+      <div class="ci-step">
+        <div class="ci-step-num">3</div>
+        <div>
+          <h4>Privacy-Preserving Synthetic Data Generation</h4>
+          <p>Generates synthetic mobility datasets using validated generative ML (diffusion models) and differential privacy techniques, balancing utility, privacy, and demographic fairness.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <span class="section-title">Research Applications</span>
+    </div>
+    <div class="use-case-grid">
+      <div class="use-case-card"><h4>Transportation & Urban Planning</h4><p>Analytical and predictive models for infrastructure design, congestion, and autonomous driving systems.</p></div>
+      <div class="use-case-card"><h4>Public Health & Epidemiology</h4><p>Mobility-based pandemic mitigation modeling and emergency response optimization.</p></div>
+      <div class="use-case-card"><h4>5G Network Deployment</h4><p>Demand-driven antenna placement and network capacity planning using synthetic population flows.</p></div>
+      <div class="use-case-card"><h4>Economics & Behavioral Research</h4><p>Understanding consumer behavior, economic activity patterns, and spatial inequality through movement data.</p></div>
+      <div class="use-case-card"><h4>Geography & Urban Science</h4><p>Cross-city spatial analysis, neighborhood characterization, and point-of-interest dynamics.</p></div>
+      <div class="use-case-card"><h4>Privacy & Fairness Research</h4><p>Benchmarking differential privacy mechanisms and auditing demographic representativeness in datasets.</p></div>
+    </div>
+
+    <div class="section-header">
+      <span class="section-title">Publications</span>
+    </div>
+    <div class="publications-list">
+      <div class="pub-item">
+        <div class="pub-year">2025</div>
+        <div class="pub-content">
+          <h4>AutoSTDiff: Autoregressive Spatio-Temporal Denoising Diffusion Model for Asynchronous Trajectory Generation</h4>
+          <p>Rongchao et al. — open-source codebase available on GitHub.</p>
+          <span class="pub-venue">ICDE 2025</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2024</div>
+        <div class="pub-content">
+          <h4>Where Have You Been? A Study of Privacy Risk for Point-of-Interest Recommendation</h4>
+          <p>Kunlin Choi et al. — includes demo codebase for core attack functions.</p>
+          <span class="pub-venue">KDD 2024</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CATALOG -->
+<div class="page" id="page-catalog">
+  <div class="catalog-header">
+    <div class="catalog-header-inner">
+      <h2>Data Catalog</h2>
+      <p>Browse and request access to synthetic mobility datasets generated by the MobilityNet platform.</p>
+      <div class="catalog-tabs">
+        <button class="catalog-tab active" onclick="filterCatalog('all', this)">All Datasets</button>
+        <button class="catalog-tab" onclick="filterCatalog('traj', this)">Trajectory</button>
+        <button class="catalog-tab" onclick="filterCatalog('poi', this)">POI Visit</button>
+        <button class="catalog-tab" onclick="filterCatalog('flow', this)">Origin-Destination Flow</button>
+      </div>
+    </div>
+  </div>
+  <div class="catalog-body">
+    <div class="search-bar">
+      <input class="search-input" placeholder="Search datasets..." type="text" oninput="searchDatasets(this.value)" />
+      <button class="filter-chip active" onclick="this.classList.toggle('active')">Privacy-safe only</button>
+      <button class="filter-chip" onclick="this.classList.toggle('active')">Verified</button>
+    </div>
+    <div class="dataset-grid" id="dataset-grid"></div>
+  </div>
+</div>
+
+<!-- TEAM -->
+<div class="page" id="page-team">
+  <div class="team-header">
+    <div class="team-header-inner">
+      <div class="hero-eyebrow" style="margin-bottom:1rem;">Research Team</div>
+      <h2>People</h2>
+      <p>Faculty, researchers, and students across Rutgers University, Florida State University, and UCLA.</p>
+    </div>
+  </div>
+  <div class="team-body">
+    <div class="team-section-label">Principal Investigators — Rutgers University</div>
+    <div class="pi-grid">
+      <div class="pi-card"><div class="pi-avatar">DZ</div><div class="pi-info"><h4>Desheng Zhang</h4><div class="pi-role">Lead PI · Computer Science</div><span class="pi-uni uni-rutgers">Rutgers</span></div></div>
+      <div class="pi-card"><div class="pi-avatar">RN</div><div class="pi-info"><h4>Robert B. Noland</h4><div class="pi-role">Co-PI · Urban Planning</div><span class="pi-uni uni-rutgers">Rutgers</span></div></div>
+      <div class="pi-card"><div class="pi-avatar">JJ</div><div class="pi-info"><h4>Jing (Peter) Jin</h4><div class="pi-role">Co-PI · Engineering</div><span class="pi-uni uni-rutgers">Rutgers</span></div></div>
+      <div class="pi-card"><div class="pi-avatar">DM</div><div class="pi-info"><h4>Dimitri Metaxas</h4><div class="pi-role">Co-PI · Computer Science</div><span class="pi-uni uni-rutgers">Rutgers</span></div></div>
+    </div>
+
+    <div class="team-section-label">Principal Investigators — FSU & UCLA</div>
+    <div class="pi-grid">
+      <div class="pi-card"><div class="pi-avatar" style="background:#faeeda;color:#7a4f0a;">GW</div><div class="pi-info"><h4>Guang Wang</h4><div class="pi-role">FSU PI · Computer Science</div><span class="pi-uni uni-fsu">FSU</span></div></div>
+      <div class="pi-card"><div class="pi-avatar" style="background:#faeeda;color:#7a4f0a;">WY</div><div class="pi-info"><h4>Weikuan Yu</h4><div class="pi-role">Co-PI · Computer Science</div><span class="pi-uni uni-fsu">FSU</span></div></div>
+      <div class="pi-card"><div class="pi-avatar" style="background:#faeeda;color:#7a4f0a;">EO</div><div class="pi-info"><h4>Eren Erman Ozguven</h4><div class="pi-role">Co-PI · Civil Engineering</div><span class="pi-uni uni-fsu">FSU</span></div></div>
+      <div class="pi-card"><div class="pi-avatar" style="background:var(--accent-light);color:var(--accent);">YT</div><div class="pi-info"><h4>Yuan Tian</h4><div class="pi-role">UCLA PI · Computer Science</div><span class="pi-uni uni-ucla">UCLA</span></div></div>
+    </div>
+
+    <div class="team-section-label">Students & Interns</div>
+    <div class="student-grid" style="margin-bottom:2rem;">
+      <div class="student-card" style="opacity:0.5;">
+        <div class="student-avatar" style="background:var(--surface2);color:var(--text3);">?</div>
+        <div>
+          <div style="font-size:14px;color:var(--text3);">To Be Announced</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px;">Graduate Research Assistant</div>
+        </div>
+      </div>
+      <div class="student-card" style="opacity:0.5;">
+        <div class="student-avatar" style="background:var(--surface2);color:var(--text3);">?</div>
+        <div>
+          <div style="font-size:14px;color:var(--text3);">To Be Announced</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px;">Undergraduate Intern</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-section-label">Partner Institutions</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Meiyi Ma · Vanderbilt</div>
+      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Shenhao Wang · U. Florida</div>
+      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Yan Leng · UT Austin</div>
+      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Fei Miao · U. Connecticut</div>
+      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Yi Ding · UT Dallas</div>
+      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Yu Yang · Lehigh</div>
+      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Gang Wang · UIUC</div>
+      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Tianhao Wang · UVA</div>
+      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Yinzhi Cao · Johns Hopkins</div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3>Request Dataset Access</h3>
+    <p id="modal-dataset-name" style="font-size:13px;font-family:var(--mono);color:var(--accent);margin-bottom:1rem;"></p>
+    <p>Complete this form to request access. You'll receive a download link within 1–2 business days.</p>
+    <div class="modal-form">
+      <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name" /></div>
+      <div class="form-group"><label>Institutional Email</label><input type="email" placeholder="name@university.edu" /></div>
+      <div class="form-group"><label>Intended Use</label><textarea placeholder="Brief description of your research use case..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-sm btn-sm-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn-sm btn-sm-primary" onclick="submitRequest()">Submit Request</button>
+    </div>
+  </div>
+</div>
+
+<div class="success-toast" id="toast">Access request submitted!</div>
+
+<div class="footer">
+  <div class="uni-logos">
+    <span class="uni-logo-text">Rutgers University</span>
+    <span style="color:var(--border);">·</span>
+    <span class="uni-logo-text">Florida State University</span>
+    <span style="color:var(--border);">·</span>
+    <span class="uni-logo-text">UCLA</span>
+  </div>
+  NSF Awards #2411151 · #2411152 · #2411153 · MobilityNet Project · 2024–2027
+</div>
+
+<script>
+const DATASETS = [
+  { id:1, name:"NYC Synthetic Trajectory Dataset", type:"traj", typeLabel:"Trajectory", desc:"Synthetic GPS trajectories for 50,000 simulated users across New York City, generated using AutoSTDiff. Covers a 30-day period with realistic temporal and spatial distributions.", city:"New York, NY", size:"4.2 GB", records:"18.5M trips", privacy:"ε = 1.0", verified:true, year:2024 },
+  { id:2, name:"Chicago POI Visit Sequences", type:"poi", typeLabel:"POI Visit", desc:"Synthetic point-of-interest visit sequences derived from real check-in patterns. 200K synthetic users, privacy-preserving with differential privacy guarantees.", city:"Chicago, IL", size:"890 MB", records:"6.1M visits", privacy:"ε = 0.5", verified:true, year:2024 },
+  { id:3, name:"Tallahassee OD Flow Matrix", type:"flow", typeLabel:"Origin-Destination", desc:"Origin-destination flow matrices for Tallahassee metro, generated in partnership with City of Tallahassee. Hourly resolution across 48 traffic analysis zones.", city:"Tallahassee, FL", size:"220 MB", records:"1.2M OD pairs", privacy:"ε = 2.0", verified:true, year:2025 },
+  { id:4, name:"LA Basin Multi-Modal Trajectories", type:"traj", typeLabel:"Trajectory", desc:"Multi-modal trajectory dataset covering car, transit, and walking for the greater Los Angeles basin. Cross-validated against Caltrans traffic counts.", city:"Los Angeles, CA", size:"7.8 GB", records:"31.2M trips", privacy:"ε = 1.5", verified:false, year:2025 },
+  { id:5, name:"Newark Urban Mobility Dataset", type:"poi", typeLabel:"POI Visit", desc:"Synthetic mobility data for Newark, NJ generated in collaboration with City of Newark. Focus on underrepresented communities and transit equity research.", city:"Newark, NJ", size:"340 MB", records:"2.4M visits", privacy:"ε = 0.8", verified:true, year:2025 },
+  { id:6, name:"Cross-City OD Benchmark (10 Cities)", type:"flow", typeLabel:"Origin-Destination", desc:"Standardized OD flow benchmark across 10 US cities for cross-city model evaluation. Includes demographic stratification by census tract.", city:"Multi-city (US)", size:"1.6 GB", records:"8.9M OD pairs", privacy:"ε = 1.0", verified:true, year:2024 }
+];
+
+let currentFilter = 'all';
+let searchQuery = '';
+
+function renderDatasets() {
+  const grid = document.getElementById('dataset-grid');
+  const filtered = DATASETS.filter(d => {
+    const matchType = currentFilter === 'all' || d.type === currentFilter;
+    const matchSearch = !searchQuery || d.name.toLowerCase().includes(searchQuery.toLowerCase()) || d.desc.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchType && matchSearch;
+  });
+  grid.innerHTML = filtered.map(d => `
+    <div class="dataset-card">
+      <div class="dataset-top">
+        <div class="dataset-name">
+          ${d.name}
+          <span class="dataset-type type-${d.type}">${d.typeLabel}</span>
+          ${d.verified ? '<span class="dataset-type" style="background:#e1f5ee;color:#0f6e56;">✓ Verified</span>' : ''}
+        </div>
+        <div class="dataset-actions">
+          <button class="btn-sm btn-sm-outline">Preview</button>
+          <button class="btn-sm btn-sm-primary" onclick="openModal('${d.name}')">Request Access</button>
+        </div>
+      </div>
+      <div class="dataset-desc">${d.desc}</div>
+      <div class="dataset-meta">
+        <span>📍 ${d.city}</span>
+        <span>💾 ${d.size}</span>
+        <span>📊 ${d.records}</span>
+        <span>🔒 DP ${d.privacy}</span>
+        <span>📅 ${d.year}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterCatalog(type, btn) {
+  currentFilter = type;
+  document.querySelectorAll('.catalog-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderDatasets();
+}
+
+function searchDatasets(q) { searchQuery = q; renderDatasets(); }
+
+function openModal(name) {
+  document.getElementById('modal-dataset-name').textContent = name;
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+function submitRequest() {
+  closeModal();
+  const toast = document.getElementById('toast');
+  toast.style.display = 'block';
+  setTimeout(() => { toast.style.display = 'none'; }, 3000);
+}
+
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.getElementById('nav-' + page).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+renderDatasets();
+</script>
+</body>
+</html>
