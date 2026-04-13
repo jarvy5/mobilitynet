@@ -655,6 +655,7 @@
   <div class="nav-links">
     <button class="nav-link active" onclick="showPage('home')" id="nav-home">Home</button>
     <button class="nav-link" onclick="showPage('overview')" id="nav-overview">Overview</button>
+    <button class="nav-link" onclick="showPage('tools')" id="nav-tools">Tools</button>
     <button class="nav-link" onclick="showPage('catalog')" id="nav-catalog">Data Catalog <span class="nav-badge">12</span></button>
     <button class="nav-link" onclick="showPage('team')" id="nav-team">Team</button>
   </div>
@@ -796,10 +797,50 @@
     </div>
     <div class="publications-list">
       <div class="pub-item">
+        <div class="pub-year">2026</div>
+        <div class="pub-content">
+          <h4>GeoGen: A Two-stage Coarse-to-Fine Framework for Fine-grained Synthetic Location-based Social Network Trajectory Generation</h4>
+          <p>Rongchao Xu, Kunlin Cai, Lin Jiang, Zhiqing Hong, Yuan Tian, and Guang Wang</p>
+          <span class="pub-venue">AAAI 2026</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2026</div>
+        <div class="pub-content">
+          <h4>UrbanHuRo: A Two-Layer Human-Robot Collaboration Framework for the Joint Optimization of Heterogeneous Urban Services</h4>
+          <p>Tonmoy Dey, Lin Jiang, Zheng Dong, and Guang Wang</p>
+          <span class="pub-venue">ICRA 2026</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2026</div>
+        <div class="pub-content">
+          <h4>UrbanPOI: Updating Urban POIs with Large-scale Crowdsourcing for Location-based Services</h4>
+          <p>Zhiqing Hong, Baoshen Guo, Wenjun Lyu, Haotian Wang, Yunhuai Liu, Guang Wang, Tian He, and Desheng Zhang</p>
+          <span class="pub-venue">IEEE TMC 2026</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2026</div>
+        <div class="pub-content">
+          <h4>Evolving Greenhouse Gas Emissions Measurement from Urban Delivery with Millions of Phones</h4>
+          <p>Zhiqing Hong, Zelong Li, Shuxin Zhong, Wenjun Lyu, Haotian Wang, Shenhao Wang, Shuai Wang, Yunhuai Liu, Dabo Guan, Tian He, Guang Wang, and Desheng Zhang</p>
+          <span class="pub-venue">Nature Cities 2026</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2025</div>
+        <div class="pub-content">
+          <h4>HCRide: Harmonizing Passenger Fairness and Driver Preference for Human-Centered Ride-Hailing</h4>
+          <p>Lin Jiang, Yu Yang, and Guang Wang</p>
+          <span class="pub-venue">IJCAI 2025</span>
+        </div>
+      </div>
+      <div class="pub-item">
         <div class="pub-year">2025</div>
         <div class="pub-content">
           <h4>AutoSTDiff: Autoregressive Spatio-Temporal Denoising Diffusion Model for Asynchronous Trajectory Generation</h4>
-          <p>Rongchao et al. — open-source codebase available on GitHub.</p>
+          <p>Rongchao Xu et al. — open-source codebase available on GitHub.</p>
           <span class="pub-venue">ICDE 2025</span>
         </div>
       </div>
@@ -811,6 +852,77 @@
           <span class="pub-venue">KDD 2024</span>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<div class="page" id="page-tools">
+  <div class="catalog-header">
+    <div class="catalog-header-inner">
+      <h2>Tools & Software</h2>
+      <p>Open-source tools developed by the MobilityNet team for synthetic mobility data generation and privacy analysis.</p>
+      <div style="height:1.5rem;"></div>
+    </div>
+  </div>
+  <div class="catalog-body">
+    <div class="dataset-grid">
+
+      <div class="dataset-card">
+        <div class="dataset-top">
+          <div class="dataset-name">
+            GeoGen
+            <span class="dataset-type type-traj">Trajectory Generation</span>
+            <span class="dataset-type" style="background:#e1f5ee;color:#0f6e56;">New</span>
+          </div>
+          <div class="dataset-actions">
+            <a href="https://github.com/Rongchao98/GeoGen" target="_blank" class="btn-sm btn-sm-primary" style="text-decoration:none;">View on GitHub</a>
+          </div>
+        </div>
+        <div class="dataset-desc">A two-stage coarse-to-fine framework for fine-grained synthetic location-based social network trajectory generation. Generates realistic, privacy-safe human mobility trajectories at scale. Published at AAAI 2026.</div>
+        <div class="dataset-meta">
+          <span>👤 Rongchao Xu et al.</span>
+          <span>📄 AAAI 2026</span>
+          <span>🔗 github.com/Rongchao98/GeoGen</span>
+        </div>
+      </div>
+
+      <div class="dataset-card">
+        <div class="dataset-top">
+          <div class="dataset-name">
+            AutoSTDiff
+            <span class="dataset-type type-traj">Trajectory Generation</span>
+          </div>
+          <div class="dataset-actions">
+            <a href="https://github.com/Rongchao98/AutoSTDiff" target="_blank" class="btn-sm btn-sm-primary" style="text-decoration:none;">View on GitHub</a>
+          </div>
+        </div>
+        <div class="dataset-desc">Autoregressive spatio-temporal denoising diffusion model for asynchronous trajectory generation. Generates high-fidelity synthetic mobility trajectories using a diffusion-based approach with strong temporal consistency. Published at ICDE 2025.</div>
+        <div class="dataset-meta">
+          <span>👤 Rongchao Xu et al.</span>
+          <span>📄 ICDE 2025</span>
+          <span>🔗 github.com/Rongchao98/AutoSTDiff</span>
+        </div>
+      </div>
+
+      <div class="dataset-card">
+        <div class="dataset-top">
+          <div class="dataset-name">
+            POIPrivacy
+            <span class="dataset-type type-poi">Privacy Analysis</span>
+          </div>
+          <div class="dataset-actions">
+            <a href="https://github.com/KunlinChoi/POIPrivacy" target="_blank" class="btn-sm btn-sm-primary" style="text-decoration:none;">View on GitHub</a>
+          </div>
+        </div>
+        <div class="dataset-desc">Demo codebase for studying privacy risk in point-of-interest recommendation systems. Includes core implementations of attack functions to audit and benchmark privacy vulnerabilities in location-based services. Published at KDD 2024.</div>
+        <div class="dataset-meta">
+          <span>👤 Kunlin Choi et al.</span>
+          <span>📄 KDD 2024</span>
+          <span>🔗 github.com/KunlinChoi/POIPrivacy</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -1001,7 +1113,8 @@ function showPage(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
   document.getElementById('page-' + page).classList.add('active');
-  document.getElementById('nav-' + page).classList.add('active');
+  const navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('active');
   window.scrollTo(0, 0);
 }
 
