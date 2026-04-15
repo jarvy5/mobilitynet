@@ -656,7 +656,7 @@
     <button class="nav-link active" onclick="showPage('home')" id="nav-home">Home</button>
     <button class="nav-link" onclick="showPage('overview')" id="nav-overview">Overview</button>
     <button class="nav-link" onclick="showPage('tools')" id="nav-tools">Tools</button>
-    <button class="nav-link" onclick="showPage('catalog')" id="nav-catalog">Data Catalog <span class="nav-badge">12</span></button>
+    <button class="nav-link" onclick="showPage('catalog')" id="nav-catalog">Data Catalog <span class="nav-badge">6</span></button>
     <button class="nav-link" onclick="showPage('team')" id="nav-team">Team</button>
   </div>
   <span class="nsf-badge">NSF #2411151</span>
@@ -676,7 +676,7 @@
 
   <div class="stats-row">
     <div class="stat-cell"><span class="stat-num">3</span><div class="stat-label">Universities</div></div>
-    <div class="stat-cell"><span class="stat-num">12</span><div class="stat-label">Datasets Available</div></div>
+    <div class="stat-cell"><span class="stat-num">6</span><div class="stat-label">Datasets Available</div></div>
     <div class="stat-cell"><span class="stat-num">8</span><div class="stat-label">Publications</div></div>
     <div class="stat-cell"><span class="stat-num">18+</span><div class="stat-label">Partner Institutions</div></div>
   </div>
@@ -841,7 +841,7 @@
         <div class="pub-content">
           <h4>AutoSTDiff: Autoregressive Spatio-Temporal Denoising Diffusion Model for Asynchronous Trajectory Generation</h4>
           <p>Rongchao Xu et al. — open-source codebase available on GitHub.</p>
-          <span class="pub-venue">ICDE 2025</span>
+          <span class="pub-venue">SDM 2025</span>
         </div>
       </div>
       <div class="pub-item">
@@ -897,10 +897,10 @@
             <a href="https://github.com/Rongchao98/AutoSTDiff" target="_blank" class="btn-sm btn-sm-primary" style="text-decoration:none;">View on GitHub</a>
           </div>
         </div>
-        <div class="dataset-desc">Autoregressive spatio-temporal denoising diffusion model for asynchronous trajectory generation. Generates high-fidelity synthetic mobility trajectories using a diffusion-based approach with strong temporal consistency. Published at ICDE 2025.</div>
+        <div class="dataset-desc">Autoregressive spatio-temporal denoising diffusion model for asynchronous trajectory generation. Generates high-fidelity synthetic mobility trajectories using a diffusion-based approach with strong temporal consistency. Published at SDM 2025.</div>
         <div class="dataset-meta">
           <span>👤 Rongchao Xu et al.</span>
-          <span>📄 ICDE 2025</span>
+          <span>📄 SDM 2025</span>
           <span>🔗 github.com/Rongchao98/AutoSTDiff</span>
         </div>
       </div>
@@ -1000,12 +1000,17 @@
       <div style="font-size:13px;color:var(--text2);padding:8px 0;">Meiyi Ma · Vanderbilt</div>
       <div style="font-size:13px;color:var(--text2);padding:8px 0;">Shenhao Wang · U. Florida</div>
       <div style="font-size:13px;color:var(--text2);padding:8px 0;">Yan Leng · UT Austin</div>
+      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Zheng Dong · Wayne State</div>
+      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Yukun Yuan · UT Chattanooga</div>
       <div style="font-size:13px;color:var(--text2);padding:8px 0;">Fei Miao · U. Connecticut</div>
+      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Nader Sehatbakhsh · UCLA</div>
       <div style="font-size:13px;color:var(--text2);padding:8px 0;">Yi Ding · UT Dallas</div>
+      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Yinzhi Cao · Johns Hopkins</div>
       <div style="font-size:13px;color:var(--text2);padding:8px 0;">Yu Yang · Lehigh</div>
       <div style="font-size:13px;color:var(--text2);padding:8px 0;">Gang Wang · UIUC</div>
       <div style="font-size:13px;color:var(--text2);padding:8px 0;">Tianhao Wang · UVA</div>
-      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Yinzhi Cao · Johns Hopkins</div>
+      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Judy Fox · UVA</div>
+      <div style="font-size:13px;color:var(--text2);padding:8px 0;">Jiaqi Ma · UCLA</div>
     </div>
   </div>
 </div>
@@ -1043,12 +1048,90 @@
 
 <script>
 const DATASETS = [
-  { id:1, name:"NYC Synthetic Trajectory Dataset", type:"traj", typeLabel:"Trajectory", desc:"Synthetic GPS trajectories for 50,000 simulated users across New York City, generated using AutoSTDiff. Covers a 30-day period with realistic temporal and spatial distributions.", city:"New York, NY", size:"4.2 GB", records:"18.5M trips", privacy:"ε = 1.0", verified:true, year:2024 },
-  { id:2, name:"Chicago POI Visit Sequences", type:"poi", typeLabel:"POI Visit", desc:"Synthetic point-of-interest visit sequences derived from real check-in patterns. 200K synthetic users, privacy-preserving with differential privacy guarantees.", city:"Chicago, IL", size:"890 MB", records:"6.1M visits", privacy:"ε = 0.5", verified:true, year:2024 },
-  { id:3, name:"Tallahassee OD Flow Matrix", type:"flow", typeLabel:"Origin-Destination", desc:"Origin-destination flow matrices for Tallahassee metro, generated in partnership with City of Tallahassee. Hourly resolution across 48 traffic analysis zones.", city:"Tallahassee, FL", size:"220 MB", records:"1.2M OD pairs", privacy:"ε = 2.0", verified:true, year:2025 },
-  { id:4, name:"LA Basin Multi-Modal Trajectories", type:"traj", typeLabel:"Trajectory", desc:"Multi-modal trajectory dataset covering car, transit, and walking for the greater Los Angeles basin. Cross-validated against Caltrans traffic counts.", city:"Los Angeles, CA", size:"7.8 GB", records:"31.2M trips", privacy:"ε = 1.5", verified:false, year:2025 },
-  { id:5, name:"Newark Urban Mobility Dataset", type:"poi", typeLabel:"POI Visit", desc:"Synthetic mobility data for Newark, NJ generated in collaboration with City of Newark. Focus on underrepresented communities and transit equity research.", city:"Newark, NJ", size:"340 MB", records:"2.4M visits", privacy:"ε = 0.8", verified:true, year:2025 },
-  { id:6, name:"Cross-City OD Benchmark (10 Cities)", type:"flow", typeLabel:"Origin-Destination", desc:"Standardized OD flow benchmark across 10 US cities for cross-city model evaluation. Includes demographic stratification by census tract.", city:"Multi-city (US)", size:"1.6 GB", records:"8.9M OD pairs", privacy:"ε = 1.0", verified:true, year:2024 }
+  {
+    id:1,
+    name:"aBeacon: Alibaba Beacon System of Couriers' Arrival Detection",
+    type:"traj",
+    typeLabel:"Mobility Trace",
+    desc:"Large-scale repository of BLE sensing, location trace, and manual report data from 31,131 couriers at 2,466 merchant locations over one month. Supports research in Bluetooth network topology, courier mobility, and location privacy.",
+    source:"Rutgers / Alibaba",
+    size:"Large-scale",
+    records:"31,131 couriers · 2,466 merchants",
+    privacy:"IDs anonymized",
+    verified:true,
+    year:2021,
+    link:"https://tianchi.aliyun.com/dataset/dataDetail?dataId=76359"
+  },
+  {
+    id:2,
+    name:"ETC Transaction Dataset V0",
+    type:"flow",
+    typeLabel:"Origin-Destination",
+    desc:"ETC transaction samples for one day in Guangdong Province including origin, destination, timestamps, and anonymized plate IDs. Contains 1,531,863 vehicles and 2,515,672 records. For academic research only.",
+    source:"Rutgers",
+    size:"~200 MB",
+    records:"2.5M records · 1.5M vehicles",
+    privacy:"IDs anonymized",
+    verified:true,
+    year:2019,
+    link:"https://www.cs.rutgers.edu/~dz220/Data/ETCData.rar"
+  },
+  {
+    id:3,
+    name:"Electric Vehicle GPS Dataset V0",
+    type:"traj",
+    typeLabel:"Trajectory",
+    desc:"Electric taxi GPS samples for one day in Shenzhen, China. Includes vehicle ID, longitude, latitude, timestamp, and speed for 664 electric taxis with 1,155,654 GPS records. For academic research only.",
+    source:"Rutgers",
+    size:"~100 MB",
+    records:"1.15M GPS records · 664 taxis",
+    privacy:"IDs anonymized",
+    verified:true,
+    year:2019,
+    link:"https://www.cs.rutgers.edu/~dz220/Data/ETData.rar"
+  },
+  {
+    id:4,
+    name:"Urban Multi-Modal Dataset V2 — Shenzhen",
+    type:"traj",
+    typeLabel:"Multi-Modal",
+    desc:"7GB dataset containing five data types: Cellphone CDR, Smartcard, Taxicab GPS, Bus GPS, and Truck GPS data from Shenzhen, China. Supports heterogeneous urban mobility modeling across transportation modes.",
+    source:"Rutgers / UMN",
+    size:"7 GB",
+    records:"CDR · Smartcard · Taxi · Bus · Truck",
+    privacy:"IDs anonymized · dates removed",
+    verified:true,
+    year:2015,
+    link:"http://www-users.cs.umn.edu/~tianhe/BIGDATA/UrbanCPS/"
+  },
+  {
+    id:5,
+    name:"AutoSTDiff — Synthetic Trajectory Data",
+    type:"traj",
+    typeLabel:"Synthetic Trajectory",
+    desc:"Synthetic trajectory datasets released alongside the AutoSTDiff codebase. Generated using the autoregressive spatio-temporal denoising diffusion model. See the GitHub repository for data and generation scripts.",
+    source:"MobilityNet / FSU",
+    size:"See GitHub",
+    records:"Synthetic · SDM 2025",
+    privacy:"Synthetic · privacy-safe",
+    verified:true,
+    year:2025,
+    link:"https://github.com/Rongchao98/AutoSTDiff"
+  },
+  {
+    id:6,
+    name:"GeoGen — Synthetic LBSN Trajectory Data",
+    type:"traj",
+    typeLabel:"Synthetic Trajectory",
+    desc:"Synthetic location-based social network trajectory datasets released alongside GeoGen. Generated using the two-stage coarse-to-fine framework for fine-grained trajectory synthesis. See the GitHub repository for data and scripts.",
+    source:"MobilityNet / FSU",
+    size:"See GitHub",
+    records:"Synthetic · AAAI 2026",
+    privacy:"Synthetic · privacy-safe",
+    verified:true,
+    year:2026,
+    link:"https://github.com/Rongchao98/GeoGen"
+  }
 ];
 
 let currentFilter = 'all';
@@ -1070,16 +1153,15 @@ function renderDatasets() {
           ${d.verified ? '<span class="dataset-type" style="background:#e1f5ee;color:#0f6e56;">✓ Verified</span>' : ''}
         </div>
         <div class="dataset-actions">
-          <button class="btn-sm btn-sm-outline">Preview</button>
-          <button class="btn-sm btn-sm-primary" onclick="openModal('${d.name}')">Request Access</button>
+          <a href="${d.link}" target="_blank" class="btn-sm btn-sm-primary" style="text-decoration:none;">Access Dataset</a>
         </div>
       </div>
       <div class="dataset-desc">${d.desc}</div>
       <div class="dataset-meta">
-        <span>📍 ${d.city}</span>
+        <span>🏛 ${d.source}</span>
         <span>💾 ${d.size}</span>
         <span>📊 ${d.records}</span>
-        <span>🔒 DP ${d.privacy}</span>
+        <span>🔒 ${d.privacy}</span>
         <span>📅 ${d.year}</span>
       </div>
     </div>
