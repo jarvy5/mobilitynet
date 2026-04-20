@@ -460,6 +460,15 @@
   .pub-content h4 { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
   .pub-content p { font-size: 12px; color: var(--text2); }
   .pub-venue { font-size: 11px; font-family: var(--mono); color: var(--accent); margin-top: 4px; display: block; }
+  .pub-link {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--accent2);
+    margin-top: 4px;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .pub-link:hover { text-decoration: underline; }
 
   /* TEAM */
   .team-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 2.5rem 2rem 2rem; }
@@ -524,6 +533,18 @@
   .uni-fsu { background: #faeeda; color: #7a4f0a; }
   .uni-ucla { background: var(--accent-light); color: var(--accent); }
 
+  .student-uni-section { margin-bottom: 1.25rem; }
+
+  .student-uni-label {
+    font-size: 11px;
+    font-family: var(--mono);
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    padding-left: 2px;
+  }
+
   .student-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
   .student-card {
@@ -550,14 +571,11 @@
     flex-shrink: 0;
   }
 
-  .you-badge {
-    font-size: 10px;
-    background: var(--accent);
-    color: white;
-    padding: 2px 7px;
-    border-radius: 20px;
-    margin-left: 6px;
-  }
+  .student-avatar.fsu { background: #faeeda; color: #7a4f0a; }
+  .student-avatar.ucla { background: var(--accent-light); color: var(--accent); }
+
+  .student-name { font-size: 14px; font-weight: 500; color: var(--text); }
+  .student-role { font-size: 12px; color: var(--text3); margin-top: 2px; }
 
   /* MODAL */
   .modal-overlay {
@@ -677,7 +695,7 @@
   <div class="stats-row">
     <div class="stat-cell"><span class="stat-num">3</span><div class="stat-label">Universities</div></div>
     <div class="stat-cell"><span class="stat-num">6</span><div class="stat-label">Datasets Available</div></div>
-    <div class="stat-cell"><span class="stat-num">8</span><div class="stat-label">Publications</div></div>
+    <div class="stat-cell"><span class="stat-num">9</span><div class="stat-label">Publications</div></div>
     <div class="stat-cell"><span class="stat-num">18+</span><div class="stat-label">Partner Institutions</div></div>
   </div>
 
@@ -715,6 +733,15 @@
       <span class="section-title">Recent News</span>
     </div>
     <div class="news-list">
+      <!-- NEW: SynHAT -->
+      <div class="news-item">
+        <div class="news-date">Apr 2026</div>
+        <div class="news-content">
+          <h4>SynHAT accepted at ACM IMWUT / UbiComp 2026</h4>
+          <p>Two-stage coarse-to-fine diffusion framework for synthesizing human activity traces — codebase available on GitHub.</p>
+          <span class="news-tag tag-pub">Publication</span>
+        </div>
+      </div>
       <div class="news-item">
         <div class="news-date">Mar 2025</div>
         <div class="news-content">
@@ -796,6 +823,18 @@
       <span class="section-title">Publications</span>
     </div>
     <div class="publications-list">
+
+      <!-- NEW: SynHAT -->
+      <div class="pub-item">
+        <div class="pub-year">2026</div>
+        <div class="pub-content">
+          <h4>SynHAT: A Two-stage Coarse-to-Fine Diffusion Framework for Synthesizing Human Activity Traces</h4>
+          <p>Rongchao Xu, Lin Jiang, Dahai Yu, Ximiao Li, and Guang Wang</p>
+          <span class="pub-venue">ACM IMWUT / UbiComp 2026</span>
+          <a class="pub-link" href="https://github.com/Rongchao98/SynHAT" target="_blank">↗ github.com/Rongchao98/SynHAT</a>
+        </div>
+      </div>
+
       <div class="pub-item">
         <div class="pub-year">2026</div>
         <div class="pub-content">
@@ -887,6 +926,26 @@
         </div>
       </div>
 
+      <!-- NEW: SynHAT tool card -->
+      <div class="dataset-card">
+        <div class="dataset-top">
+          <div class="dataset-name">
+            SynHAT
+            <span class="dataset-type type-traj">Activity Trace Generation</span>
+            <span class="dataset-type" style="background:#e1f5ee;color:#0f6e56;">New</span>
+          </div>
+          <div class="dataset-actions">
+            <a href="https://github.com/Rongchao98/SynHAT" target="_blank" class="btn-sm btn-sm-primary" style="text-decoration:none;">View on GitHub</a>
+          </div>
+        </div>
+        <div class="dataset-desc">A two-stage coarse-to-fine diffusion framework for synthesizing realistic human activity traces. Leverages diffusion-based generation to produce high-fidelity, privacy-safe activity data for behavior modeling and urban sensing research. Published at ACM IMWUT / UbiComp 2026.</div>
+        <div class="dataset-meta">
+          <span>👤 Rongchao Xu, Lin Jiang, Dahai Yu, Ximiao Li, Guang Wang</span>
+          <span>📄 ACM IMWUT / UbiComp 2026</span>
+          <span>🔗 github.com/Rongchao98/SynHAT</span>
+        </div>
+      </div>
+
       <div class="dataset-card">
         <div class="dataset-top">
           <div class="dataset-name">
@@ -961,6 +1020,7 @@
     </div>
   </div>
   <div class="team-body">
+
     <div class="team-section-label">Principal Investigators — Rutgers University</div>
     <div class="pi-grid">
       <div class="pi-card"><div class="pi-avatar">DZ</div><div class="pi-info"><h4>Desheng Zhang</h4><div class="pi-role">Lead PI · Computer Science</div><span class="pi-uni uni-rutgers">Rutgers</span></div></div>
@@ -978,19 +1038,94 @@
     </div>
 
     <div class="team-section-label">Students & Interns</div>
-    <div class="student-grid" style="margin-bottom:2rem;">
-      <div class="student-card" style="opacity:0.5;">
-        <div class="student-avatar" style="background:var(--surface2);color:var(--text3);">?</div>
-        <div>
-          <div style="font-size:14px;color:var(--text3);">To Be Announced</div>
-          <div style="font-size:12px;color:var(--text3);margin-top:2px;">Graduate Research Assistant</div>
+
+    <!-- Rutgers Students -->
+    <div class="student-uni-section">
+      <div class="student-uni-label">Rutgers University</div>
+      <div class="student-grid">
+        <div class="student-card">
+          <div class="student-avatar">YK</div>
+          <div>
+            <div class="student-name">Youngseo Kweon</div>
+            <div class="student-role">PhD Student · Rutgers</div>
+          </div>
+        </div>
+        <div class="student-card">
+          <div class="student-avatar">JH</div>
+          <div>
+            <div class="student-name">Jinquan Hang</div>
+            <div class="student-role">PhD Student · Rutgers</div>
+          </div>
+        </div>
+        <div class="student-card">
+          <div class="student-avatar">VR</div>
+          <div>
+            <div class="student-name">Vraj Raj</div>
+            <div class="student-role">Undergraduate · Rutgers</div>
+          </div>
+        </div>
+        <div class="student-card">
+          <div class="student-avatar">SE</div>
+          <div>
+            <div class="student-name">Srijan Erigela</div>
+            <div class="student-role">Undergraduate · Rutgers</div>
+          </div>
         </div>
       </div>
-      <div class="student-card" style="opacity:0.5;">
-        <div class="student-avatar" style="background:var(--surface2);color:var(--text3);">?</div>
-        <div>
-          <div style="font-size:14px;color:var(--text3);">To Be Announced</div>
-          <div style="font-size:12px;color:var(--text3);margin-top:2px;">Undergraduate Intern</div>
+    </div>
+
+    <!-- FSU Students -->
+    <div class="student-uni-section">
+      <div class="student-uni-label">Florida State University</div>
+      <div class="student-grid">
+        <div class="student-card">
+          <div class="student-avatar fsu">RX</div>
+          <div>
+            <div class="student-name">Rongchao Xu</div>
+            <div class="student-role">PhD Student · FSU</div>
+          </div>
+        </div>
+        <div class="student-card">
+          <div class="student-avatar fsu">DY</div>
+          <div>
+            <div class="student-name">Dahai Yu</div>
+            <div class="student-role">PhD Student · FSU</div>
+          </div>
+        </div>
+        <div class="student-card">
+          <div class="student-avatar fsu">CC</div>
+          <div>
+            <div class="student-name">Cody Cintron</div>
+            <div class="student-role">Undergraduate · FSU</div>
+          </div>
+        </div>
+        <div class="student-card">
+          <div class="student-avatar fsu">RK</div>
+          <div>
+            <div class="student-name">Ricky Krissel</div>
+            <div class="student-role">Undergraduate · FSU</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UCLA Students -->
+    <div class="student-uni-section" style="margin-bottom:2rem;">
+      <div class="student-uni-label">UCLA</div>
+      <div class="student-grid">
+        <div class="student-card">
+          <div class="student-avatar ucla">KC</div>
+          <div>
+            <div class="student-name">Kunlin Cai</div>
+            <div class="student-role">PhD Student · UCLA</div>
+          </div>
+        </div>
+        <div class="student-card">
+          <div class="student-avatar ucla">ZX</div>
+          <div>
+            <div class="student-name">Zihang Xiang</div>
+            <div class="student-role">Postdoctoral Researcher · UCLA</div>
+          </div>
         </div>
       </div>
     </div>
